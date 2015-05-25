@@ -4,9 +4,9 @@
  *
  * @mc       Arduino/RBBB (ATMEGA328)
  * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  3.2
+ * @version  3.2.1
  * @created  1.11.2011
- * @updated  20.8.2013
+ * @updated  12.9.2013
  *
  * Versionshistorie:
  * V 1.1:   - DCF77 auf reine Zeit ohne Strings umgestellt.
@@ -87,7 +87,7 @@
  *          - Der LDR skaliert jetzt selbst, dann flackert es weniger bei unguenstigen Lichtverhaeltnissen.
  * V 3.1.1. - Die Displayhelligkeit wird beim starten gesetzt.
  *          - Kleiner Fehler im Spanischen behoben.
- *          - Die alte Shiftregistermothode ist wieder aktiv, die schnelle kann in Configuretion.h gesetzt werden.
+ *          - Die alte Shiftregistermothode ist wieder aktiv, die schnelle kann in Configuration.h gesetzt werden.
  * V 3.1.2. - Led-Driver-Klassen sagen, wer sie sind (fuer die Ausgabe der Konfiguration beim Start).
  *          - Klassen-Namen verbessert.
  * V 3.2.   - Led-Driver fuer das Licht-Monster implementiert.
@@ -96,6 +96,9 @@
  *          - EnableAlarm und DCF77SignalIsInverted ins EEPROM ausgelagert und ueber das erweiterte Setup einstellbar.
  *          - Die Modi SCRAMBLE und ALL entfernt, dafuer den Modus TEST eingefuehrt. ALL ist fuer manche DisplayDriver gefaehrlich wegen des Stromverbrauchs. TEST schalte nacheinander alle LEDs einmal durch.
  *          - Moeglichkeit zur Zeitverschiebung eingefuehrt.
+ * V 3.2.1. - Alle Deutsch-Varianten zusammengefasst, um Platz zu sparen.
+ *          - Fehler im Italienischen behoben.
+ *          - Fehler mit Doppelbelegung einer Variable im Qlockthree.ino behoben.
  */
 #include <Wire.h> // Wire library fuer I2C
 #include <avr/pgmspace.h>
@@ -116,7 +119,7 @@
 #include "Settings.h"
 #include "Zahlen.h"
 
-#define FIRMWARE_VERSION "V 3.2 vom 20.8.2013"  
+#define FIRMWARE_VERSION "V 3.2.1 vom 12.9.2013"  
 
 /*
  * Den DEBUG-Schalter gibt es in allen Bibiliotheken. Wird er eingeschaltet, werden ueber den
@@ -244,6 +247,8 @@ Alarm alarm(PIN_SPEAKER);
  * Der Helligkeitssensor
  */
 LDR ldr(PIN_LDR);
+unsigned long lastBrightnessCheck;
+
 /**
  * Die Helligkeit zum Anzeigen mit den Balken.
  */
@@ -436,13 +441,16 @@ void loop() {
   // Dimmung.
   //
   if (settings.getUseLdr()) {
-    if(settings.getBrightness() != ldr.value()) {
-      settings.setBrightness(ldr.value());
-      DEBUG_PRINT(F("brightness: "));
-      DEBUG_PRINTLN(settings.getBrightness());
-      DEBUG_FLUSH();
-      ledDriver.setBrightness(settings.getBrightness());
-    }
+    if(abs(lastBrightnessCheck - millis()) > 1000) { // nur einmal pro Sekunde nachsehen...
+      if(settings.getBrightness() != ldr.value()) {
+        settings.setBrightness(ldr.value());
+        DEBUG_PRINT(F("brightness: "));
+        DEBUG_PRINTLN(settings.getBrightness());
+        DEBUG_FLUSH();
+        ledDriver.setBrightness(settings.getBrightness());
+      }
+      lastBrightnessCheck = millis();
+    }  
   }
 
   //
@@ -554,9 +562,9 @@ void loop() {
       case STD_MODE_BRIGHTNESS:
         renderer.clearScreenBuffer(matrix);
         brightnessToDisplay = map(settings.getBrightness(), 1, 100, 0, 9);
-        for(byte x=0; x<brightnessToDisplay; x++) {
-          for(byte y=0; y<=x; y++) {
-            matrix[9-y] |= 1 << (14-x);
+        for(byte xb = 0; xb < brightnessToDisplay; xb++) {
+          for(byte yb = 0; yb <= xb; yb++) {
+            matrix[9 - yb] |= 1 << (14 - xb);
           }
         }
       break;

@@ -45,7 +45,7 @@
 #define IT_H_CINQUE  matrix[6] |= 0b1111110000000000
 
 #define IT_MENO      matrix[6] |= 0b0000000111100000
-#define IT_E         matrix[7] |= 0b1000000000000000
+#define IT_E2        matrix[7] |= 0b1000000000000000
 #define IT_UN        matrix[7] |= 0b0011000000000000
 #define IT_QUARTO    matrix[7] |= 0b0000011111100000
 #define IT_VENTI     matrix[8] |= 0b1111100000000000

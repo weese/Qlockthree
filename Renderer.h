@@ -4,14 +4,16 @@
  *
  * @mc       Arduino/RBBB
  * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.2
+ * @version  1.3
  * @created  21.1.2013
- * @updated  20.8.2013
+ * @updated  9.9.2013
  *
  * Versionshistorie:
  * V 1.0:  - Erstellt.
  * V 1.1:  - Spanisch hinzugefuegt.
  * V 1.2:  - setMinutes - hours auf char umgestellt, damit Zeitverschiebung geht...
+ * V 1.3:  - Alle Deutsch-Varianten zusammengefasst, um Platz zu sparen.
+ *         - Fehler im Italienischen behoben.
  */
 #ifndef RENDERER_H
 #define RENDERER_H

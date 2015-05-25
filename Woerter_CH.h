@@ -1,8 +1,8 @@
 /**
- * Woerter_CH.h
+ * Woerter_CH
  * Definition der schweizerischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
- * 
+ *
  *   01234567890
  * 0 ESKISCHAFÜF
  * 1 VIERTUBFZÄÄ
@@ -54,5 +54,3 @@
 #define CH_H_ZWOEUFI    matrix[9] |= 0b1111110000000000
 
 #endif
-
-

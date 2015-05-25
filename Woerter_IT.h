@@ -1,9 +1,9 @@
 /**
- * Woerter_IT.h
+ * Woerter_IT
  * Definition der italienischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
- *   01234567890 
+ *   01234567890
  * 0 SONORLEBORE
  * 1 ERLUNASDUEZ
  * 2 TREOTTONOVE
@@ -54,5 +54,3 @@
 #define IT_MEZZA     matrix[9] |= 0b0000001111100000
 
 #endif
-
-

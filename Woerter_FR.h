@@ -1,5 +1,5 @@
 /**
- * Woerter_FR.h
+ * Woerter_FR
  * Definition der franzoesischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
@@ -56,5 +56,3 @@
 #define FR_H_MINUIT     matrix[4] |= 0b0000011111100000
 
 #endif
-
-

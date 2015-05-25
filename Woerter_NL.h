@@ -1,14 +1,17 @@
 /**
- * Woerter_NL.h
+ * Woerter_NL
  * Definition der niederlaendischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
  * @mc       Arduino/RBBB
  * @autor    Rudolf Klimesch (Vorlage: Christian Aschoff)
- * @version  1.0
+ * @version  1.01
  * @created  17.1.2013
- * 
- * 
+ * @update   29.9.2014
+ *
+ * Historie:
+ * V 1.01 - Falsches O bei ZEVEN behoben.
+ *
  */
 #ifndef WOERTER_NL_H
 #define WOERTER_NL_H
@@ -51,7 +54,7 @@
 #define NL_H_VIER       matrix[6] |= 0b1111000000000000 // H_VIER
 #define NL_H_VIJF       matrix[6] |= 0b0000111100000000 // H_FUENF
 #define NL_H_ZES        matrix[6] |= 0b0000000011100000 // H_SECHS
-#define NL_H_ZEVEN      matrix[7] |= 0b1111110000000000 // H_SIEBEN
+#define NL_H_ZEVEN      matrix[7] |= 0b1111100000000000 // H_SIEBEN
 #define NL_H_ACHT       matrix[8] |= 0b1111000000000000 // H_ACHT
 #define NL_H_NEGEN      matrix[7] |= 0b0000001111100000 // H_NEUN
 #define NL_H_TIEN       matrix[8] |= 0b0000111100000000 // H_ZEHN
@@ -59,5 +62,3 @@
 #define NL_H_TWAALF     matrix[9] |= 0b1111110000000000 // H_ZWOELF
 
 #endif
-
-

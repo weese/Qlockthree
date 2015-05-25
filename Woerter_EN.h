@@ -1,9 +1,9 @@
 /**
- * Woerter_EN.h
+ * Woerter_EN
  * Definition der englischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
- *   01234567890 
+ *   01234567890
  * 0 ITLISASTIME
  * 1 ACQUARTERDC
  * 2 TWENTYFIFEX
@@ -24,9 +24,9 @@
 #define WOERTER_EN_H
 
 /**
- * Definition der Woerter. 
+ * Definition der Woerter.
  */
- 
+
 #define EN_ITIS     matrix[0] |= 0b1101100000000000
 #define EN_TIME     matrix[0] |= 0b0000000111100000
 #define EN_A        matrix[1] |= 0b1000000000000000
@@ -54,5 +54,3 @@
 #define EN_H_TEN    matrix[9] |= 0b1110000000000000
 
 #endif
-
-

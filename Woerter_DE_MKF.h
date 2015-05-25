@@ -1,5 +1,5 @@
 /**
- * Woerter_DE_MKF.h
+ * Woerter_DE_MKF
  * Definition der deutschen Woerter fuer die Zeitansage.
  * Hier in einer anderen Variante nach der Matix von Gerog M.
  * Sie entspricht dem Layout aus dem Mikrocontroller.net
@@ -55,5 +55,3 @@
 #define DE_H_ZWOELF     matrix[4] |= 0b0000011111000000
 
 #endif
-
-

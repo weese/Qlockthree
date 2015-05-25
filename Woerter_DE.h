@@ -1,5 +1,5 @@
 /**
- * Woerter_DE.h
+ * Woerter_DE
  * Definition der deutschen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
@@ -53,5 +53,3 @@
 #define DE_H_ZWOELF     matrix[8] |= 0b0000001111100000
 
 #endif
-
-

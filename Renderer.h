@@ -1,12 +1,12 @@
 /**
- * Renderer.h
+ * Renderer
  * Diese Klasse rendert die Woerter auf die Matrix.
  *
  * @mc       Arduino/RBBB
  * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.3
+ * @version  1.5
  * @created  21.1.2013
- * @updated  9.9.2013
+ * @updated  16.2.2015
  *
  * Versionshistorie:
  * V 1.0:  - Erstellt.
@@ -14,15 +14,13 @@
  * V 1.2:  - setMinutes - hours auf char umgestellt, damit Zeitverschiebung geht...
  * V 1.3:  - Alle Deutsch-Varianten zusammengefasst, um Platz zu sparen.
  *         - Fehler im Italienischen behoben.
+ * V 1.4:  - Stundenbegrenzung (die ja wegen der Zeitverschiebungsmoeglichkeit existiert) auf den Bereich 0 <= h <= 24 ausgeweitet, dank Tipp aus dem Forum.
+ * V 1.5:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
  */
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#if defined(ARDUINO) && ARDUINO >= 100
-  #include "Arduino.h"
-#else
-  #include "WProgram.h"
-#endif
+#include "Arduino.h"
 
 #define LANGUAGE_DE_DE 0
 #define LANGUAGE_DE_SW 1
@@ -42,9 +40,9 @@ public:
 
     void setMinutes(char hours, byte minutes, byte language, word matrix[16]);
     void setCorners(byte minutes, boolean cw, word matrix[16]);
-    
+
     void cleanWordsForAlarmSettingMode(byte language, word matrix[16]);
-    
+
     void scrambleScreenBuffer(word matrix[16]);
     void clearScreenBuffer(word matrix[16]);
     void setAllScreenBuffer(word matrix[16]);
@@ -59,5 +57,3 @@ private:
 };
 
 #endif
-
-

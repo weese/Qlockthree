@@ -1,9 +1,9 @@
 /**
- * Woerter_ES.h
+ * Woerter_ES
  * Definition der spanischen Woerter fuer die Zeitansage.
  * Die Woerter sind Bitmasken fuer die Matrix.
  *
- *   01234567890 
+ *   01234567890
  * 0 ESONELASUNA
  * 1 DOSITRESORE
  * 2 CUATROCINCO
@@ -76,5 +76,3 @@
 #define ES_H_DOCE      matrix[6] |= 0b1111000000000000
 
 #endif
-
-

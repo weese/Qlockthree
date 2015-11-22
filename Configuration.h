@@ -13,9 +13,9 @@
  * V 1.1:  - ENABLE_LDR und ENABLE_DCF entfernt.
  * V 1.2:  - PWM_DURATION von 50 auf 75 erhoeht.
  * V 1.3:  - MAX_BRIGHTNESS entfernt. Der LDR kann jetzt individuell skalieren.
- *         - PWM_DURATION zurueck auf 50.
+ *         - PWM_DURATION zurueck auf 50. 
  * V 1.4:  - ENABLE_ALARM jetzt im EEPROM.
- *         - PWM_DURATION an neue LDR-Klasse angepasst.
+ *         - PWM_DURATION an neue LDR-Klasse angepasst. 
  *         - DCF77_SIGNAL_IS_INVERTED jetzt im EEPROM.
  * V 1.5:  - Diverse Config-Moeglichkeiten fuer die verschiedenen LED-Driver eingefuehrt.
  */
@@ -36,21 +36,21 @@
  * - SPEAKER_FREQUENCY ist die Tonhoehe, wenn der Speaker ein Lautpsrecher ist.
  * - SPEAKER_IS_BUZZER: wenn einkommentiert wird davon ausgegangen, dass am Pin SPEAKER ein Buzzer haengt (Reichelt: SUMMER TDB 05).
  */
-#define SPEAKER_FREQUENCY 200000
-#define MAX_BUZZ_TIME_IN_MINUTES 10
-#define SPEAKER_IS_BUZZER
+   #define SPEAKER_FREQUENCY 200000
+   #define MAX_BUZZ_TIME_IN_MINUTES 10
+   #define SPEAKER_IS_BUZZER 
 
 /*
  * Die Status-LEDs koennen hier durch auskommentieren ausgeschaltet werden.
- * Default: eingeschaltet
+ * Default: eingeschaltet 
  */
-#define ENABLE_DCF_LED
-#define ENABLE_SQW_LED
-
+   #define ENABLE_DCF_LED
+   #define ENABLE_SQW_LED
+   
 /*
  * Welcher LED-Treiber soll benutzt werden?
  */
-#define LED_DRIVER_DEFAULT
+   #define LED_DRIVER_DEFAULT
 // #define LED_DRIVER_UEBERPIXEL
 // #define LED_DRIVER_POWER_SHIFT_REGISTER
 // #define LED_DRIVER_NEOPIXEL
@@ -60,36 +60,36 @@
 /*
  * Welche Uhr soll benutzt werden?
  */
-#define DS1307
+   #define DS1307
 // #define DS3231
 
 /*
  * Welche Fernbedienung soll benutzt werden?
  */
-#define REMOTE_NO_REMOTE
+   #define REMOTE_NO_REMOTE
 // #define REMOTE_SPARKFUN
 // #define REMOTE_MOONCANDLES
 // #define REMOTE_LUNARTEC
-
+   
 /*
  *
  * Seltener zu aendernde Einstellungen...
  *
  */
-
+ 
 // ------------------ Default Display Driver ---------------------
 /*
- * Dieser Schalter erhoeht die Helligkeit bei der Verwendung des Default-LED-Treibers (Shift-Register und UDN2981A),
+ * Dieser Schalter erhoeht die Helligkeit bei der Verwendung des Default-LED-Treibers (Shift-Register und UDN2981A), 
  * indem er nicht beleuchtete Zeilen ueberspringt. (Tipp von Johannes)
  * Default: ausgeschaltet
  */
 // #define SKIP_BLANK_LINES
 /*
- * Die Zeit, die mit LDR::MAX_BRIGHTNESS multipliziert auf
+ * Die Zeit, die mit LDR::MAX_BRIGHTNESS multipliziert auf 
  * eine Zeile aufgeteilt wird in Mikrosekunden.
  * (default = 8)
  */
-#define PWM_DURATION 8
+   #define PWM_DURATION 8
 /*
  * Dieser Schalter stellt die Anzeige auf den Kopf, falls man die Kabel beim Anoden-
  * multiplexer nicht kreuzen moechte oder es vergessen hat.
@@ -100,27 +100,27 @@
  * Schnelle Datenausgabe?
  * Default: Eingeschaltet.
  */
-#define SHIFTREGISTER_TURBO
+   #define SHIFTREGISTER_TURBO
 /*
  * Noch optimiertes Schreiben von 0 und FFFF?
  * Default: Ausgeschaltet
  */
 // #define OPTIMIZED_FOR_DARKNESS
 
-// ------------------ Tasten ---------------------
+// ------------------ Tasten --------------------- 
 /*
  * Die Zeit in Millisekunden, innerhalb derer Prellungen der Taster nicht als Druecken zaehlen.
  * (Und damit auch die Tastaturwiederholrate)
  * Default: 300
  */
-#define BUTTON_TRESHOLD 300
+   #define BUTTON_TRESHOLD 300
 
 // ------------------ DCF77-Empfaenger ---------------------
 /*
  * Fuer wieviele DCF77-Samples muessen die Zeitabstaende stimmen, damit das DCF77-Telegramm als gueltig zaehlt?
  * Default: 3 (min. 3 Minuten Synchronisationszeit).
  */
-#define DCF77HELPER_MAX_SAMPLES 3
+   #define DCF77HELPER_MAX_SAMPLES 3
 /*
  * Bei einer Verwendung eines analogen Pins die naechsten zwei Zeilen einkommentieren.
  * Default: ausgeschaltet
@@ -139,7 +139,7 @@
  * Die Telegrammlaenge.
  * Default: 59
  */
-#define MYDCF77_TELEGRAMMLAENGE 59
+   #define MYDCF77_TELEGRAMMLAENGE 59
 /*
  * Ist das Signal invertiert (z.B. ELV-Empfaenger)?
  * Default: ausgeschaltet.
@@ -150,28 +150,28 @@
  * Anzahl der Glaettungspunkte fuer das DCF77-Signal.
  * Default: bis v3.3.0 8, jetzt 59.
  */
-#define MYDCF77_MEANCOUNT 59
-
+   #define MYDCF77_MEANCOUNT 59
+   
 /*
  * Startwerte fuer den Mittelwert.
  */
 #ifdef LED_DRIVER_DEFAULT
-#define MYDCF77_MEANSTARTVALUE 7
+  #define MYDCF77_MEANSTARTVALUE 7
 #endif
 #ifdef LED_DRIVER_UEBERPIXEL
-#define MYDCF77_MEANSTARTVALUE 1300
+  #define MYDCF77_MEANSTARTVALUE 1300
 #endif
 #ifdef LED_DRIVER_POWER_SHIFT_REGISTER
-#define MYDCF77_MEANSTARTVALUE 10
+  #define MYDCF77_MEANSTARTVALUE 10
 #endif
 #ifdef LED_DRIVER_NEOPIXEL
-#define MYDCF77_MEANSTARTVALUE 450
+  #define MYDCF77_MEANSTARTVALUE 450
 #endif
 #ifdef LED_DRIVER_DOTSTAR
-#define MYDCF77_MEANSTARTVALUE 1280
+  #define MYDCF77_MEANSTARTVALUE 1280
 #endif
 #ifdef LED_DRIVER_LPD8806
-#define MYDCF77_MEANSTARTVALUE 1280
+  #define MYDCF77_MEANSTARTVALUE 1280
 #endif
 // ------------------ Lichtabhaengiger Widerstand ---------------------
 /*
@@ -180,9 +180,9 @@
  * Messwerte bekommt. Ohne AUTOSCALE werden die manuellen Min-/Max-Werte genommen.
  * Default: eingeschaltet.
  */
-#define LDR_AUTOSCALE
-#define LDR_MANUAL_MIN 0
-#define LDR_MANUAL_MAX 1023
+   #define LDR_AUTOSCALE
+   #define LDR_MANUAL_MIN 0
+   #define LDR_MANUAL_MAX 1023
 /*
  * Die Menge der Werte fuer die Glaettung. Mehr Werte bringen bessere Ergebnisse aber
  * brauchen auch mehr Zeit (und mehr Speicher! / Gleitender Mittelwert)
@@ -194,15 +194,15 @@
  * Der Hysterese-Trashold.
  * Default: 50
  */
-#define LDR_HYSTERESE 50
+   #define LDR_HYSTERESE 50
 /*
  * Die LDR-Werte werden auf Prozent gemappt.
  * Hier koennen diese Werte beschnitten werden,
  * falls man eine minimale oder maximale
  * Helligkeit vorgeben moechte.
  */
-#define LDR_MIN_PERCENT 5
-#define LDR_MAX_PERCENT 100
+   #define LDR_MIN_PERCENT 5
+   #define LDR_MAX_PERCENT 100 
 /*
  * LDR-Check-Raten. Dieser Wert beeinflusst, wie schnell
  * sich die Displayhelligkeit an neue LDR-Werte anpasst
@@ -211,22 +211,36 @@
  * neue Anpassung stattfindet.
  */
 #ifdef LED_DRIVER_DEFAULT
-#define LDR_CHECK_RATE 1
+  #define LDR_CHECK_RATE 1
 #endif
 #ifdef LED_DRIVER_UEBERPIXEL
-#define LDR_CHECK_RATE 7
+  #define LDR_CHECK_RATE 7
 #endif
 #ifdef LED_DRIVER_POWER_SHIFT_REGISTER
-#define LDR_CHECK_RATE 10
+  #define LDR_CHECK_RATE 10
 #endif
 #ifdef LED_DRIVER_NEOPIXEL
-#define LDR_CHECK_RATE 10
+  #define LDR_CHECK_RATE 10
 #endif
 #ifdef LED_DRIVER_DOTSTAR
-#define LDR_CHECK_RATE 10
+  #define LDR_CHECK_RATE 10
 #endif
 #ifdef LED_DRIVER_LPD8806
-#define LDR_CHECK_RATE 10
+  #define LDR_CHECK_RATE 10
 #endif
 
+
+#define DPIN(port, pin, mode, _bit) ((((uint32_t)&port) << 24) | (((uint32_t)&pin) << 16) | (((uint32_t)&mode) << 8) | (uint32_t)_bit)
+#define DPIN_BIT(dpin)  ((uint8_t)1 << (dpin & 7))
+#define DPIN_PORT(dpin) *(volatile uint8_t *)((dpin >> 24) & 0xff)
+#define DPIN_PIN(dpin)  *(volatile uint8_t *)((dpin >> 16) & 0xff)
+#define DPIN_MODE(dpin) *(volatile uint8_t *)((dpin >> 8) & 0xff)
+
+#define DPIN_OUTPUT(dpin) DPIN_MODE(dpin) |= DPIN_BIT(dpin)
+#define DPIN_INPUT(dpin) DPIN_MODE(dpin) &= ~DPIN_BIT(dpin)
+#define DPIN_LOW(dpin) DPIN_PORT(dpin) &= ~DPIN_BIT(dpin)
+#define DPIN_HIGH(dpin) DPIN_PORT(dpin) |= DPIN_BIT(dpin)
+#define DPIN_TOGGLE(dpin) DPIN_PIN(dpin) = DPIN_BIT(dpin)
+
 #endif
+

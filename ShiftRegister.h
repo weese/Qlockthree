@@ -54,8 +54,6 @@ class ShiftRegister
    * Ein WORD (16 Bit) ausgeben
    */
   static void shiftOut(word data) {
-    uint8_t oldSREG = SREG;
-    cli();
     DPIN_LOW(dataPin);
     DPIN_LOW(clockPin);
     data ^= data << 1;
@@ -66,8 +64,6 @@ class ShiftRegister
       DPIN_TOGGLE(clockPin);
       DPIN_TOGGLE(clockPin);
     }
-    sei();
-    SREG = oldSREG;
   }
 
   /**

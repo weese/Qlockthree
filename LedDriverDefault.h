@@ -130,11 +130,14 @@ void writeScreenBufferToMatrix(word matrix[16], boolean onChange) {
 
       // Alter Zeileninhalt
       // Zeile schreiben...
+      cli();
       shiftRegister.prepareShiftregisterWrite();
       shiftRegister.shiftOut(~_matrixOld[k]);
       shiftRegister.shiftOut(row);
       shiftRegister.finishShiftregisterWrite();
-      if (_alpha > 0) { // Über OE einschalten und nach PWM-Anteil wieder ausschalten, wenn das Display aktiv ist
+      if (_delayOldMatrix)
+      {
+        // Über OE einschalten und nach PWM-Anteil wieder ausschalten, wenn das Display aktiv ist
         if (_displayOn == true) {DPIN_LOW(outputEnablePin);}
         delayMicroseconds(_delayOldMatrix);
         if (_displayOn == true) {DPIN_HIGH(outputEnablePin);}
@@ -144,16 +147,20 @@ void writeScreenBufferToMatrix(word matrix[16], boolean onChange) {
       shiftRegister.prepareShiftregisterWrite();
       shiftRegister.shiftOut(~_matrixNew[k]);
       shiftRegister.shiftOut(row);
-      shiftRegister.finishShiftregisterWrite();    
-      if (_displayOn == true) {DPIN_LOW(outputEnablePin);} // Über OE einschalten und nach PWM-Anteil wieder ausschalten, wenn das Display aktiv ist
-      delayMicroseconds(_delayNewMatrix);
-      if (_displayOn == true) {DPIN_HIGH(outputEnablePin);} // bleibt danach ausgeschaltet
-   
+      shiftRegister.finishShiftregisterWrite();
+      if (_delayNewMatrix)
+      {
+        if (_displayOn == true) {DPIN_LOW(outputEnablePin);} // Über OE einschalten und nach PWM-Anteil wieder ausschalten, wenn das Display aktiv ist
+        delayMicroseconds(_delayNewMatrix);
+        if (_displayOn == true) {DPIN_HIGH(outputEnablePin);} // bleibt danach ausgeschaltet
+      }
       // hier kann man versuchen, das Taktverhaeltnis zu aendern (Auszeit)...
       // delayMicroseconds mit Werten <= 3 macht Probleme...
-      if(_brightnessInPercent < 97) {
+//      if (_brightnessInPercent < 97) 
+      {
         delayMicroseconds((100 - _brightnessInPercent) * PWM_DURATION);
       }
+      sei();
 
 #ifdef SKIP_BLANK_LINES
     }

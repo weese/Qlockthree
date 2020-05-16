@@ -66,10 +66,10 @@
 /*
  * Welche Fernbedienung soll benutzt werden?
  */
-   #define REMOTE_NO_REMOTE
+// #define REMOTE_NO_REMOTE
 // #define REMOTE_SPARKFUN
 // #define REMOTE_MOONCANDLES
-// #define REMOTE_LUNARTEC
+   #define REMOTE_LUNARTEC
    
 /*
  *
@@ -230,7 +230,16 @@
 #endif
 
 
-#define DPIN(port, pin, mode, _bit) ((((uint32_t)&port) << 24) | (((uint32_t)&pin) << 16) | (((uint32_t)&mode) << 8) | (uint32_t)_bit)
+//#define DPIN(port, pin, mode, _bit) ( \
+//  (static_cast<uint32_t>(&port) << 24) | \
+//  (static_cast<uint32_t>(&pin) << 16) | \
+//  (static_cast<uint32_t>(&mode) << 8) | \
+//  static_cast<uint32_t>(_bit))
+#define DPIN(port, pin, mode, _bit) ( \
+  ((uint32_t)port << 24) | \
+  ((uint32_t)pin << 16) | \
+  ((uint32_t)mode << 8) | \
+  (uint32_t)_bit)
 #define DPIN_BIT(dpin)  ((uint8_t)1 << (dpin & 7))
 #define DPIN_PORT(dpin) *(volatile uint8_t *)((dpin >> 24) & 0xff)
 #define DPIN_PIN(dpin)  *(volatile uint8_t *)((dpin >> 16) & 0xff)
@@ -243,4 +252,3 @@
 #define DPIN_TOGGLE(dpin) DPIN_PIN(dpin) = DPIN_BIT(dpin)
 
 #endif
-

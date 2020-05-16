@@ -166,6 +166,7 @@
 */
 #include <Wire.h> // Wire library fuer I2C
 #include <avr/pgmspace.h>
+#include <avr/wdt.h>
 #include <EEPROM.h>
 #include <SPI.h>
 #include <LedControl.h>
@@ -239,16 +240,17 @@ Renderer renderer;
 */
 #ifdef LED_DRIVER_DEFAULT
 LedDriverDefault <
-	DPIN((PORTB), (PINB), (DDRB), 2),
-	DPIN(PORTB, PINB, DDRB, 4),
-	DPIN(PORTB, PINB, DDRB, 3),
-	DPIN(PORTD, PIND, DDRD, 3), 10 > ledDriver;
+	DPIN(37, 35, 36, 2),
+	DPIN(37, 35, 36, 4),
+	DPIN(37, 35, 36, 3),
+	DPIN(43, 41, 42, 3), 10 > ledDriver;
 
 #define PIN_MODE 7
 #define PIN_M_PLUS 5
 #define PIN_H_PLUS 6
 
 #define BUTTONS_PRESSING_AGAINST HIGH
+//#define BUTTONS_PRESSING_AGAINST LOW  // for marikaner
 
 #define PIN_IR_RECEIVER A1
 
@@ -525,6 +527,7 @@ void setDisplayDarker();
 void setDisplayBrighter();
 void setDisplayToResume();
 void setDisplayToBlank();
+void setDisplayToToggle();
 
 /**
    Aenderung der Anzeige als Funktion fuer den Interrupt, der ueber das SQW-Signal
@@ -544,7 +547,7 @@ void updateFromRtc() {
 }
 
 /**
-   Den freien Specher abschaetzen.
+   Den freien Speicher abschaetzen.
    Kopiert von: http://playground.arduino.cc/Code/AvailableMemory
 */
 int freeRam() {
@@ -723,6 +726,32 @@ void setup() {
    loop() wird endlos auf alle Ewigkeit vom Microcontroller durchlaufen
 */
 void loop() {
+  //
+  // Reset via serial command
+  //
+  if (Serial.available() > 0)
+  {
+    char cmd = Serial.read();
+    if (cmd == 'R') // When the host sends an 'R' enable the Watchdog timer
+    {
+      wdt_enable(WDTO_15MS); // This is the smallest interval that can be set
+    }
+    if (cmd == '0')
+    {
+      for (int i=0; i<100; ++i)  // repeat the check for a short peroid
+      {
+        if (Serial.available() > 0 && Serial.read() == ' ')
+        {
+          Serial.write(0x14);  // reply two char to avrdude
+          Serial.write(0x10);  //  for synchronization
+          Serial.flush(); //wait the transmission
+          wdt_enable(WDTO_15MS); // This is the smallest interval that can be set
+        }
+        delay(10);  // cannot repeat too fast here
+      }
+    }
+  }
+  
   //
   // FPS
   //
@@ -1469,4 +1498,3 @@ void setDisplayDarker() {
     ledDriver.setBrightness(i);
   }
 }
-

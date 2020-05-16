@@ -81,7 +81,7 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
         case LANGUAGE_DE_SW:
         case LANGUAGE_DE_BA:
         case LANGUAGE_DE_SA:
-            DE_ESIST;
+            // DE_ESIST;
 
             switch (minutes / 5) {
                 case 0:
@@ -1129,56 +1129,36 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
 /**
  * Setzt die vier Punkte in den Ecken, je nach minutes % 5 (Rest).
  *
- * @param ccw: TRUE -> clock wise -> im Uhrzeigersinn.
- *             FALSE -> counter clock wise -> gegen den Uhrzeigersinn.
+ * @param cw: TRUE -> clock wise -> im Uhrzeigersinn.
+ *            FALSE -> counter clock wise -> gegen den Uhrzeigersinn.
  */
 void Renderer::setCorners(byte minutes, boolean cw, word matrix[16]) {
     if (cw) {
         // im Uhrzeigersinn
         switch (minutes % 5) {
-            case 0:
-                break;
-            case 1:
-                matrix[1] |= 0b0000000000011111; // 1
-                break;
-            case 2:
-                matrix[1] |= 0b0000000000011111; // 1
-                matrix[0] |= 0b0000000000011111; // 2
-                break;
-            case 3:
-                matrix[1] |= 0b0000000000011111; // 1
-                matrix[0] |= 0b0000000000011111; // 2
-                matrix[3] |= 0b0000000000011111; // 3
-                break;
             case 4:
-                matrix[1] |= 0b0000000000011111; // 1
-                matrix[0] |= 0b0000000000011111; // 2
-                matrix[3] |= 0b0000000000011111; // 3
-                matrix[2] |= 0b0000000000011111; // 4
+                matrix[0] |= 0b0000000000011111; // oben links
+            case 3:
+                matrix[3] |= 0b0000000000011111; // unten links
+            case 2:
+                matrix[2] |= 0b0000000000011111; // unten rechts
+            case 1:
+                matrix[1] |= 0b0000000000011111; // oben rechts
+            default:
                 break;
         }
     } else {
         // gegen den Uhrzeigersinn
         switch (minutes % 5) {
-            case 0:
-                break;
-            case 1:
-                matrix[0] |= 0b0000000000011111; // 1
-                break;
-            case 2:
-                matrix[0] |= 0b0000000000011111; // 1
-                matrix[1] |= 0b0000000000011111; // 2
-                break;
-            case 3:
-                matrix[0] |= 0b0000000000011111; // 1
-                matrix[1] |= 0b0000000000011111; // 2
-                matrix[2] |= 0b0000000000011111; // 3
-                break;
             case 4:
-                matrix[0] |= 0b0000000000011111; // 1
-                matrix[1] |= 0b0000000000011111; // 2
-                matrix[2] |= 0b0000000000011111; // 3
-                matrix[3] |= 0b0000000000011111; // 4
+                matrix[1] |= 0b0000000000011111; // oben rechts
+            case 3:
+                matrix[2] |= 0b0000000000011111; // unten rechts
+            case 2:
+                matrix[3] |= 0b0000000000011111; // unten links
+            case 1:
+                matrix[0] |= 0b0000000000011111; // oben links
+            default:
                 break;
         }
     }

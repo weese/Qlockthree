@@ -1,0 +1,4 @@
+- detect firmware and version with bootCheck.ino
+- firmware Optiboot 4.4 has default baud rate of 115200
+- change Qlockthree firmware to use 115200 baud and reboot on 'R'
+- flash with 'AVR ISP', 'Genuino Uno'

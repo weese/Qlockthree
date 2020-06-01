@@ -205,7 +205,7 @@
 #include "Debug.h"
 // Die Geschwindigkeit der seriellen Schnittstelle. Default: 57600. Die Geschwindigkeit brauchen wir immer,
 // da auch ohne DEBUG Meldungen ausgegeben werden!
-#define SERIAL_SPEED 57600
+#define SERIAL_SPEED 115200
 
 /*
    Die persistenten (im EEPROM gespeicherten) Einstellungen.
@@ -240,10 +240,10 @@ Renderer renderer;
 */
 #ifdef LED_DRIVER_DEFAULT
 LedDriverDefault <
-	DPIN(37, 35, 36, 2),
-	DPIN(37, 35, 36, 4),
-	DPIN(37, 35, 36, 3),
-	DPIN(43, 41, 42, 3), 10 > ledDriver;
+  DPIN(37, 35, 36, 2),
+  DPIN(37, 35, 36, 4),
+  DPIN(37, 35, 36, 3),
+  DPIN(43, 41, 42, 3), 10 > ledDriver;
 
 #define PIN_MODE 7
 #define PIN_M_PLUS 5
@@ -722,6 +722,27 @@ void setup() {
   ledDriver.setBrightness(settings.getBrightness());
 }
 
+// Do a manual reset, i.e. disable watchdog and interrupts, initialize stack pointer to 
+// after-reset and jump to bootloader. We cannot use the watchdog for reset, as the 
+// checks the reset reason and fast-starts the sketch if it was caused by watchdog.
+void launchBootloader() {
+    wdt_disable();
+    __asm__ __volatile__ (
+      "cli\n"
+      "ldi r30, lo8(%[ramend])\n"
+      "ldi r31, hi8(%[ramend])\n"
+      "out __SP_L__, r30\n"
+      "out __SP_H__, r31\n"
+      "ldi r30, lo8(%[bootloader])\n"
+      "ldi r31, hi8(%[bootloader])\n"
+      "clr __zero_reg__\n"
+      "ijmp\n"
+      ::
+      [ramend] "i" (RAMEND),
+      [bootloader] "i" (0x7e00 >> 1)
+    );
+}
+
 /**
    loop() wird endlos auf alle Ewigkeit vom Microcontroller durchlaufen
 */
@@ -732,26 +753,26 @@ void loop() {
   if (Serial.available() > 0)
   {
     char cmd = Serial.read();
-    if (cmd == 'R') // When the host sends an 'R' enable the Watchdog timer
+    if (cmd == 'R') // reboot on 'R'
     {
-      wdt_enable(WDTO_15MS); // This is the smallest interval that can be set
+      launchBootloader();
     }
     if (cmd == '0')
     {
-      for (int i=0; i<100; ++i)  // repeat the check for a short peroid
+      for (int i = 0; i < 100; ++i) // repeat the check for a short peroid
       {
         if (Serial.available() > 0 && Serial.read() == ' ')
         {
           Serial.write(0x14);  // reply two char to avrdude
           Serial.write(0x10);  //  for synchronization
           Serial.flush(); //wait the transmission
-          wdt_enable(WDTO_15MS); // This is the smallest interval that can be set
+          launchBootloader();
         }
         delay(10);  // cannot repeat too fast here
       }
     }
   }
-  
+
   //
   // FPS
   //

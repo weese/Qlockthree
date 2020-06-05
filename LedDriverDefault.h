@@ -130,7 +130,6 @@ void writeScreenBufferToMatrix(word matrix[16], boolean onChange) {
 
       // Alter Zeileninhalt
       // Zeile schreiben...
-      cli();
       shiftRegister.prepareShiftregisterWrite();
       shiftRegister.shiftOut(~_matrixOld[k]);
       shiftRegister.shiftOut(row);
@@ -160,7 +159,6 @@ void writeScreenBufferToMatrix(word matrix[16], boolean onChange) {
       {
         delayMicroseconds((100 - _brightnessInPercent) * PWM_DURATION);
       }
-      sei();
 
 #ifdef SKIP_BLANK_LINES
     }

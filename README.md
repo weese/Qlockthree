@@ -9,7 +9,7 @@
 ## Optiboot bootloader
 
 Version used: 
-- Optiboot 6.2 (optiboot_atmega328.hex) feature/bluetooth-support branch
+- Optiboot 6.2 (optiboot_atmega328.hex) master branch
 - Commit ID: a09198fd402a01c91a0bea949bd4c0e779e85a52
 - Date: Mon Dec 28 17:21:54 2015 -0800
 - Speed: 115200

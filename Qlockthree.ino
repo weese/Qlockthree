@@ -201,7 +201,7 @@
    Serial-Monitor muss mit der hier angegeben uebereinstimmen.
    Default: ausgeschaltet
 */
-#define DEBUG
+// #define DEBUG
 #include "Debug.h"
 // Die Geschwindigkeit der seriellen Schnittstelle. Default: 57600. Die Geschwindigkeit brauchen wir immer,
 // da auch ohne DEBUG Meldungen ausgegeben werden!
@@ -763,9 +763,9 @@ void loop() {
       {
         if (Serial.available() > 0 && Serial.read() == ' ')
         {
-          Serial.write(0x14);  // reply two char to avrdude
-          Serial.write(0x10);  //  for synchronization
-          Serial.flush(); //wait the transmission
+          Serial.write(0x14); // reply two char to avrdude
+          Serial.write(0x10); // for synchronization
+          Serial.flush();     // wait the transmission
           launchBootloader();
         }
         delay(10);  // cannot repeat too fast here
